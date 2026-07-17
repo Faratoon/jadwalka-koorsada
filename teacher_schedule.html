@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MACALLIN AI - Teacher Schedule</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        header h1 { font-size: 2.5em; color: #00d4ff; margin-bottom: 10px; }
+        header p { font-size: 1.1em; color: #aaa; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card h3 { font-size: 2em; color: #00d4ff; }
+        .stat-card p { color: #aaa; font-size: 0.9em; }
+
+        .week-section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .week-header {
+            background: linear-gradient(90deg, #00d4ff22, transparent);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .week-header h2 { color: #00d4ff; font-size: 1.3em; }
+        .week-header .date { color: #aaa; font-size: 0.9em; }
+        .week-content { padding: 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: rgba(0,0,0,0.3);
+            padding: 12px 15px;
+            text-align: left;
+            color: #00d4ff;
+            font-weight: 600;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95em;
+        }
+        tr:hover { background: rgba(0,212,255,0.05); }
+        .course-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+        .k1 { background: #ff6b6b33; color: #ff6b6b; border: 1px solid #ff6b6b44; }
+        .k2 { background: #4ecdc433; color: #4ecdc4; border: 1px solid #4ecdc444; }
+        .k3 { background: #ffe66d33; color: #ffe66d; border: 1px solid #ffe66d44; }
+        .k4 { background: #a8e6cf33; color: #a8e6cf; border: 1px solid #a8e6cf44; }
+        .type-tag {
+            font-size: 0.75em;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.1);
+            color: #aaa;
+        }
+        a {
+            color: #00d4ff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover { color: #fff; text-decoration: underline; }
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 0.85em;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8em; }
+            th, td { padding: 8px 10px; font-size: 0.85em; }
+            .week-header { flex-direction: column; align-items: flex-start; }
+            .week-header .date { margin-top: 5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 MACALLIN AI</h1>
+            <p>Teacher Schedule — 14 Usbuuc | 70 Cashar | 4 Koorsadood</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat-card">
+                <h3>14</h3>
+                <p>Usbuuc</p>
+            </div>
+            <div class="stat-card">
+                <h3>70</h3>
+                <p>Cashar</p>
+            </div>
+            <div class="stat-card">
+                <h3>4</h3>
+                <p>Koorsadood</p>
+            </div>
+            <div class="stat-card">
+                <h3>2</h3>
+                <p>Halka Isuug (YouTube + Loom)</p>
+            </div>
+        </div>
+
+        <!-- WEEK 1 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 1 — Aasaaska AI & Chatbots</h2>
+                <span class="date">21 July - 27 July 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>1</td><td><span class="course-tag k1">K1 AI</span></td><td>Chatbot Aasaaska</td><td><a href="https://www.youtube.com/watch?v=zVwhZ9jH0qY" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>2</td><td><span class="course-tag k1">K1 AI</span></td><td>Chatbots Noocyada</td><td><a href="https://www.youtube.com/watch?v=dkMO_-Sa1EY" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>3</td><td><span class="course-tag k1">K1 AI</span></td><td>Knowledge Base Pipeline</td><td><a href="https://www.youtube.com/watch?v=E4nxnDdsPT8" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>4</td><td><span class="course-tag k1">K1 AI</span></td><td>ManyChat Bilow</td><td><a href="https://www.youtube.com/watch?v=FlaqS831-nM" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>5</td><td><span class="course-tag k1">K1 AI</span></td><td>Bot Macallin Xisaab</td><td><a href="https://www.youtube.com/watch?v=sbczVS6MDWI" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 2 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 2 — ManyChat & Prompts</h2>
+                <span class="date">28 July - 03 Aug 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>6</td><td><span class="course-tag k1">K1 AI</span></td><td>ManyChat Hordhac</td><td><a href="https://www.youtube.com/watch?v=y03ckrI0ezc" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>7</td><td><span class="course-tag k1">K1 AI</span></td><td>Knowledge Base Manus AI</td><td><a href="https://www.youtube.com/watch?v=r_aHgos0dZg" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>8</td><td><span class="course-tag k1">K1 AI</span></td><td>Prompt Heer Sare</td><td><a href="https://www.youtube.com/watch?v=60JgZXi930k" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>9</td><td><span class="course-tag k1">K1 AI</span></td><td>Prompts Customization</td><td><a href="https://www.youtube.com/watch?v=I2j7AArFIGQ" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>10</td><td><span class="course-tag k1">K1 AI</span></td><td>Comet AI Browser</td><td><a href="https://www.youtube.com/watch?v=R0xhBLqj6ys" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 3 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 3 — Telegram Bot & AI Tools</h2>
+                <span class="date">04 Aug - 10 Aug 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>11</td><td><span class="course-tag k1">K1 AI</span></td><td>Manus AI Shaqo Fudud</td><td><a href="https://www.youtube.com/watch?v=0S6ArHPgpCA" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>12</td><td><span class="course-tag k1">K1 AI</span></td><td>Paal AI Telegram Bot</td><td><a href="https://www.youtube.com/watch?v=SEfx-QRnJsU" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>13</td><td><span class="course-tag k1">K1 AI</span></td><td>Paal AI Part 2</td><td><a href="https://www.youtube.com/watch?v=Jc6ct8O1zLw" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>14</td><td><span class="course-tag k1">K1 AI</span></td><td>YouMind AI Waxbarasho</td><td><a href="https://www.youtube.com/watch?v=who5zXdmohA" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>15</td><td><span class="course-tag k1">K1 AI</span></td><td>WhatsApp vs Telegram Bot</td><td><a href="https://www.youtube.com/watch?v=N6Gu_mHetIc" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 4 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 4 — ChatGPT & Gemini</h2>
+                <span class="date">11 Aug - 17 Aug 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>16</td><td><span class="course-tag k1">K1 AI</span></td><td>Custom ChatGPT</td><td><a href="https://www.youtube.com/watch?v=aXrrjehQgh0" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>17</td><td><span class="course-tag k1">K1 AI</span></td><td>Prompt Instructions</td><td><a href="https://www.youtube.com/watch?v=dnqFGfKLb4Y" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>18</td><td><span class="course-tag k1">K1 AI</span></td><td>Gemini GEMS AI</td><td><a href="https://www.youtube.com/watch?v=vaEaWf1-VWU" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>19</td><td><span class="course-tag k1">K1 AI</span></td><td>Perplexity AI Mobile</td><td><a href="https://www.youtube.com/watch?v=EUvNqeLF0AA" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>20</td><td><span class="course-tag k1">K1 AI</span></td><td>AI Quiz Tool</td><td><a href="https://www.youtube.com/watch?v=XlopdHYs2aI" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 5 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 5 — Messenger & Botpress</h2>
+                <span class="date">18 Aug - 24 Aug 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>21</td><td><span class="course-tag k1">K1 AI</span></td><td>ManyChat 3</td><td><a href="https://www.youtube.com/watch?v=L9WwTphvuYU" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>22</td><td><span class="course-tag k1">K1 AI</span></td><td>FB Messenger Bot</td><td><a href="https://www.youtube.com/watch?v=2IFflSsAzys" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>23</td><td><span class="course-tag k1">K1 AI</span></td><td>Messenger Customer Service</td><td><a href="https://www.youtube.com/watch?v=On6q9Xc0--Q" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>24</td><td><span class="course-tag k1">K1 AI</span></td><td>Botpress Knowledge Base</td><td><a href="https://www.youtube.com/watch?v=mNLJ-8dZwvg" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>25</td><td><span class="course-tag k1">K1 AI</span></td><td>WhatsApp Telegram Marketing</td><td><a href="https://www.youtube.com/watch?v=5Lu9jcaP220" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 6 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 6 — AI Sawirro & DeepSeek</h2>
+                <span class="date">25 Aug - 31 Aug 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>26</td><td><span class="course-tag k1">K1 AI</span></td><td>Canva AI Sawirro</td><td><a href="https://www.youtube.com/watch?v=5tEtbYLetkU" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>27</td><td><span class="course-tag k1">K1 AI</span></td><td>AI Sawir Samee</td><td><a href="https://www.youtube.com/watch?v=wu4oubHInMY" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>28</td><td><span class="course-tag k1">K1 AI</span></td><td>VEO 3 Google Video AI</td><td><a href="https://www.youtube.com/watch?v=JBDMbL8VzGo" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>29</td><td><span class="course-tag k1">K1 AI</span></td><td>Quiz DeepSeek Telegram</td><td><a href="https://www.youtube.com/watch?v=mGxS8tw-fUc" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>30</td><td><span class="course-tag k1">K1 AI</span></td><td>Monica AI Af-Soomaali</td><td><a href="https://www.youtube.com/watch?v=RHq7027Y4U4" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 7 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 7 — Telegram Bot A-Z & Linux</h2>
+                <span class="date">01 Sep - 07 Sep 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>31</td><td><span class="course-tag k1">K1 AI</span></td><td>Telegram Bot A to Z</td><td><a href="https://www.youtube.com/watch?v=TwKLnqnjxsQ" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>32</td><td><span class="course-tag k1">K1 AI</span></td><td>Google Bard vs Meta AI</td><td><a href="https://www.youtube.com/watch?v=bFtgqnhEX88" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>33</td><td><span class="course-tag k1">K1 AI</span></td><td>Offline AI Apps</td><td><a href="https://www.youtube.com/watch?v=Pn1kU1et7oI" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>34</td><td><span class="course-tag k1">K1 AI</span></td><td>WhatsApp 2025</td><td><a href="https://www.youtube.com/watch?v=aJFGVD5vilM" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>35</td><td><span class="course-tag k1">K1 AI</span></td><td>Linux Hordhac</td><td><a href="https://www.youtube.com/watch?v=I2F1-5dk3hQ" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 8 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 8 — Linux, Security & Thumbnails</h2>
+                <span class="date">08 Sep - 14 Sep 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>36</td><td><span class="course-tag k1">K1 AI</span></td><td>Linux ku Soo Dag</td><td><a href="https://www.youtube.com/watch?v=7K4aibOiPQ4" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>37</td><td><span class="course-tag k1">K1 AI</span></td><td>Apps Internet Security</td><td><a href="https://www.youtube.com/watch?v=_RWyy40XfM0" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>38</td><td><span class="course-tag k1">K1 AI</span></td><td>AI Video Editing Somalia</td><td><a href="https://www.youtube.com/watch?v=7MB2xCbLt1M" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>39</td><td><span class="course-tag k1">K1 AI</span></td><td>Thumbnail Professional</td><td><a href="https://www.youtube.com/watch?v=R2g7f5kXpI0" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                    <tr><td>40</td><td><span class="course-tag k1">K1 AI</span></td><td>AI Photo Animation</td><td><a href="https://www.youtube.com/watch?v=M9m-dIe46qM" target="_blank">YouTube ↗</a></td><td><span class="type-tag">YouTube</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 9 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 9 — AI Video Editing (InVideo & Pictory)</h2>
+                <span class="date">15 Sep - 21 Sep 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>41</td><td><span class="course-tag k2">K2 Video</span></td><td>InVideo Fundamentals</td><td><a href="https://www.loom.com/share/8465169f3ed34080a9223c7dd8cafb37" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>42</td><td><span class="course-tag k2">K2 Video</span></td><td>InVideo – Creating Video from Text</td><td><a href="https://www.loom.com/share/77792231bc8140008e8eeaab77b3d788" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>43</td><td><span class="course-tag k2">K2 Video</span></td><td>Pictory.ai Introduction</td><td><a href="https://www.loom.com/share/a63c2b5554274df2a7e97975851834ef" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>44</td><td><span class="course-tag k2">K2 Video</span></td><td>Pictory Professional Editing Techniques</td><td><a href="https://www.loom.com/share/5df200096f084354bfd41ca0551edf2f" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>45</td><td><span class="course-tag k2">K2 Video</span></td><td>Pictory.ai – AI-Powered Video Editing</td><td><a href="https://www.loom.com/share/f03cfff5dc0a4222842ba074b123ab39" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 10 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 10 — Lumen5 Video Editing</h2>
+                <span class="date">22 Sep - 28 Sep 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>46</td><td><span class="course-tag k2">K2 Video</span></td><td>Lumen5 – Utilizing Ready-made Templates</td><td><a href="https://www.loom.com/share/1f638be8ca1a4c5a8a110921803e54bd" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>47</td><td><span class="course-tag k2">K2 Video</span></td><td>Lumen5 Editing Interface</td><td><a href="https://www.loom.com/share/b7c491c56fff4926a2cdc8a92730e9f0" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>48</td><td><span class="course-tag k2">K2 Video</span></td><td>Lumen5 – Audio and Visual Enhancements</td><td><a href="https://www.loom.com/share/42b2100320884386ada6af388c9e6495" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>49</td><td><span class="course-tag k2">K2 Video</span></td><td>Audio Refinement and Cutting – Lumen5</td><td><a href="https://www.loom.com/share/1e44a27acab9467582d965fa4c9bb4a1" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>50</td><td><span class="course-tag k2">K2 Video</span></td><td>Additional Resources (PDF & Substack)</td><td><a href="https://open.substack.com/pub/mfaratoon/p/9-cashar-ai-video-editing" target="_blank">Substack ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 11 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 11 — Dropshipping & Zendrop AI</h2>
+                <span class="date">29 Sep - 05 Oct 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>51</td><td><span class="course-tag k3">K3 Drop</span></td><td>MAXAA KU DOORNAY ZENDROP</td><td><a href="https://www.loom.com/share/a5f8d34a8bac4bd9be5d0c4b159286cd" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>52</td><td><span class="course-tag k3">K3 Drop</span></td><td>Zendrop AI Iyo Dropshippingka</td><td><a href="https://www.loom.com/share/9f2291c7056e45beae291b2505caf496" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>53</td><td><span class="course-tag k3">K3 Drop</span></td><td>Sida Loo Sameeyo Telegama AI Advanced ah</td><td><a href="https://www.loom.com/share/6c78f630461d4fccb835f072e5edbfe1" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>54</td><td><span class="course-tag k3">K3 Drop</span></td><td>AI Dropshipping Sida Hawsha u Fududeeyey</td><td><a href="https://www.loom.com/share/27c48641a1ed42c084b2d637501ff409" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>55</td><td><span class="course-tag k3">K3 Drop</span></td><td>Sida Loogu Shubo Appka Zendrop</td><td><a href="https://www.loom.com/share/0ac9d7cd352b462292a42e657fe0668d" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 12 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 12 — Dropshipping Automation & No Tech</h2>
+                <span class="date">06 Oct - 12 Oct 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>56</td><td><span class="course-tag k3">K3 Drop</span></td><td>QAABKA AI SHAQADA U FUDUDEEYEY</td><td><a href="https://www.loom.com/share/96535223749b4347919003b77b1765af" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>57</td><td><span class="course-tag k3">K3 Drop</span></td><td>ISKU XIDHKA HALKII AAN KA SOO BILOWNAY NO TECH</td><td><a href="https://www.loom.com/share/9913a2b3c4f84de0bc874a69e21fb921" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>58</td><td><span class="course-tag k3">K3 Drop</span></td><td>DULMAR GUUD OO KU SAABSAN WAXAA BARANAY</td><td><a href="https://www.loom.com/share/600f81758476491bbbbbc4e8518fc9d5" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>59</td><td><span class="course-tag k3">K3 Drop</span></td><td>ADEEGYADA UGU DAMBEYEY EE DROPSHIPPING</td><td><a href="https://www.loom.com/share/0b5a69dbae8249f38c71b0146645ee77" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                    <tr><td>60</td><td><span class="course-tag k3">K3 Drop</span></td><td>DHAMAYSTIRE GUUD - SIDA HAWSHA AI INOOGU DHAMEEYEY</td><td><a href="https://www.loom.com/share/21ed0c84d67c425cb4aa9a0636c233fd" target="_blank">Loom ↗</a></td><td><span class="type-tag">Loom</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 13 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 13 — Iloodheeraad & Bulsho (Qayb 1)</h2>
+                <span class="date">13 Oct - 19 Oct 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>61</td><td><span class="course-tag k4">K4 Res</span></td><td>WhatsApp Group (Quiz & Support)</td><td><a href="https://chat.whatsapp.com/BRk1xgsg4ohKAaWN7oDRIe" target="_blank">WhatsApp ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>62</td><td><span class="course-tag k4">K4 Res</span></td><td>Telegram Channel (Updates & Files)</td><td><a href="https://t.me/+eJxxMKtunMcwODhk" target="_blank">Telegram ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>63</td><td><span class="course-tag k4">K4 Res</span></td><td>Free AI Channel (AI Tools & Tips)</td><td><a href="https://t.me/Farsamada" target="_blank">Telegram ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>64</td><td><span class="course-tag k4">K4 Res</span></td><td>AI-Chatbot Learning WhatsApp</td><td><a href="https://chat.whatsapp.com/KzkcjwraeYhCsUXaexgNyM" target="_blank">WhatsApp ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>65</td><td><span class="course-tag k4">K4 Res</span></td><td>AI Video Editing WhatsApp</td><td><a href="https://chat.whatsapp.com/G9phNqLyJ3L2RV4lprLUb7" target="_blank">WhatsApp ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- WEEK 14 -->
+        <div class="week-section">
+            <div class="week-header">
+                <h2>📅 Usbuuca 14 — Iloodheeraad & Bulsho (Qayb 2/Dhamaystir)</h2>
+                <span class="date">20 Oct - 26 Oct 2026</span>
+            </div>
+            <div class="week-content">
+                <table>
+                    <tr><th>#</th><th>Course</th><th>Casharka</th><th>Link</th><th>Type</th></tr>
+                    <tr><td>66</td><td><span class="course-tag k4">K4 Res</span></td><td>AI Automation WhatsApp</td><td><a href="https://chat.whatsapp.com/BRk1xgsg4ohKAaWN7oDRIe" target="_blank">WhatsApp ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>67</td><td><span class="course-tag k4">K4 Res</span></td><td>YouTube Channel</td><td><a href="https://m.youtube.com/user/MrFaraton" target="_blank">YouTube ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>68</td><td><span class="course-tag k4">K4 Res</span></td><td>Facebook Community</td><td><a href="https://www.facebook.com/soomaalipodcast" target="_blank">Facebook ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>69</td><td><span class="course-tag k4">K4 Res</span></td><td>Substack (Blog)</td><td><a href="https://mfaratoon.substack.com/" target="_blank">Substack ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                    <tr><td>70</td><td><span class="course-tag k4">K4 Res</span></td><td>Course Page</td><td><a href="https://mfaratoon-nebvh2nc.manus.space/course" target="_blank">Course ↗</a></td><td><span class="type-tag">Link</span></td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🤖 Waa la xidhan karaa Telegram Bot | Automation Course Bot</p>
+            <p>Generated by MACALLIN AI Schedule System</p>
+        </div>
+    </div>
+</body>
+</html>
