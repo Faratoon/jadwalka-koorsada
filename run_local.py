@@ -1,14 +1,11 @@
 """
 MACALLIN BOT - LOCAL TEST MODE (Polling)
-=====================================
 Habka ugu fudud ee tijaabinta. Webhook ma loo baahanahay.
-Waxaad u baahan tahay:
-  1. .env.local file (TOKEN iyo ADMIN_IDS ku qoran)
-  2. Riix: python run_local.py
 """
 import os
 import sys
 import signal
+import asyncio
 from pathlib import Path
 
 # Load .env.local haddii jiro
@@ -17,7 +14,7 @@ try:
     env_file = Path(__file__).parent / ".env.local"
     if env_file.exists():
         load_dotenv(env_file)
-        print(f"[OK] Loaded .env.local")
+        print("[OK] Loaded .env.local")
     else:
         print("[WARN] .env.local ma jiro. Environment variables isticmaali.")
 except ImportError:
@@ -27,6 +24,7 @@ except ImportError:
 sys.path.insert(0, str(Path(__file__).parent))
 
 from core.bot_app import build_application
+from telegram import Update
 
 def main():
     token = os.environ.get("BOT_TOKEN", "")
@@ -39,27 +37,45 @@ def main():
         sys.exit(1)
 
     print("=" * 60)
-    print("  🤖 MACALLIN BOT - LOCAL POLLING MODE")
+    print("  MACALLIN BOT - LOCAL POLLING MODE")
     print("=" * 60)
     print(f"  Token prefix: {token.split(':')[0]}")
     print(f"  Admin IDs: {os.environ.get('ADMIN_IDS', 'None')}")
     print("  Bot waa la shidlaya...")
     print("  Riix Ctrl+C si aad u joojiso.\n")
 
-    app = build_application()
+    async def run_bot():
+        app = build_application()
+        await app.initialize()
+        await app.start()
+        await app.updater.start_polling(
+            allowed_updates=Update.ALL_TYPES,
+            drop_pending_updates=True,
+        )
+        print("[OK] Polling started! Telegram-ka /start riix.")
 
-    def shutdown(signum, frame):
-        print("\n[OK] Bot waa la joojiyay. Nabad galyo!")
-        sys.exit(0)
+        # Run forever until Ctrl+C
+        stop_event = asyncio.Event()
+        def shutdown():
+            print("\n[OK] Shutdown signal received...")
+            stop_event.set()
 
-    signal.signal(signal.SIGINT, shutdown)
+        # Handle Ctrl+C on Windows
+        try:
+            for sig in (signal.SIGINT, signal.SIGTERM):
+                signal.signal(sig, lambda s, f: shutdown())
+        except Exception:
+            pass
 
-    # run_polling with drop_pending_updates si aad uga fogaato flood
-    app.run_polling(
-        allowed_updates=Update.ALL_TYPES,
-        drop_pending_updates=True,
-    )
+        await stop_event.wait()
+
+        print("[OK] Stopping bot...")
+        await app.updater.stop()
+        await app.stop()
+        await app.shutdown()
+        print("[OK] Bot stopped. Nabad galyo!")
+
+    asyncio.run(run_bot())
 
 if __name__ == "__main__":
-    from telegram import Update
     main()
