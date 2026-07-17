@@ -372,7 +372,12 @@ async def certificate_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     student = db.get_student(user_id)
     if not student:
-        await update.message.reply_text("Fadlan /start")
+        text = "Fadlan /start"
+        if update.callback_query:
+            await update.callback_query.answer()
+            await update.callback_query.edit_message_text(text)
+        else:
+            await update.message.reply_text(text)
         return
 
     total = sum(len(c["lessons"]) for c in COURSES)
@@ -380,10 +385,19 @@ async def certificate_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if completed < total:
         text = f"📜 Wali ma ahan! {completed}/{total} cashar. Sii wad! 💪"
-        await update.message.reply_text(text, parse_mode="Markdown")
+        if update.callback_query:
+            await update.callback_query.answer()
+            await update.callback_query.edit_message_text(text, reply_markup=main_menu_keyboard(), parse_mode="Markdown")
+        else:
+            await update.message.reply_text(text, reply_markup=main_menu_keyboard(), parse_mode="Markdown")
         return
 
-    await update.message.reply_text("⏳ Caddaynta la sameynayaa...")
+    # Dhammaystiran — samee PDF
+    if update.callback_query:
+        await update.callback_query.answer("⏳ Caddaynta la sameynayaa...")
+    else:
+        await update.message.reply_text("⏳ Caddaynta la sameynayaa...")
+
     pdf_bytes, cert_id = generate_certificate(student["first_name"], "MACALLIN AI — 70 Cashar")
 
     student["certificate_issued"] = True
@@ -391,11 +405,22 @@ async def certificate_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     db.save_student(str(user_id), student)
 
     pdf_file = InputFile(io.BytesIO(pdf_bytes), filename=f"Certificate_{student['first_name']}_{cert_id}.pdf")
-    await update.message.reply_document(
-        document=pdf_file,
-        caption=f"🎓 *HAMBALYO {student['first_name']}!*\n📜 ID: `{cert_id}`",
-        parse_mode="Markdown",
-    )
+    caption = f"🎓 *HAMBALYO {student['first_name']}!*\n📜 ID: `{cert_id}`"
+
+    if update.callback_query:
+        await context.bot.send_document(
+            chat_id=user_id,
+            document=pdf_file,
+            caption=caption,
+            parse_mode="Markdown",
+        )
+        await update.callback_query.edit_message_text("📜 Caddaynta waa la soo diray! 🎓", reply_markup=main_menu_keyboard())
+    else:
+        await update.message.reply_document(
+            document=pdf_file,
+            caption=caption,
+            parse_mode="Markdown",
+        )
 
 async def quiz_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
