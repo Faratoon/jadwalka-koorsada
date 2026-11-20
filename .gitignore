@@ -29,3 +29,5 @@ Thumbs.db
 # Certificates (generated)
 certificates/*.png
 certificates/*.pdf
+
+.env.local
